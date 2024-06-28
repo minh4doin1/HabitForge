@@ -4,7 +4,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap');
 
 /* Body styles */
+.bg-img {
+  position: fixed; /* Đảm bảo background ảnh cố định và nằm phía sau */
+  z-index: -1; /* Đặt z-index nhỏ hơn để nằm phía sau các phần tử khác */
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  top: 0;
+  left: 0;
+}
 body {
+  
   font-family: 'Pixelify Sans', sans-serif;
   background-color: #e0d7c8; /* Màu nền form màu đất */
   display: flex;
@@ -23,10 +35,12 @@ body {
   border-radius: 10px;
   font-family: 'Pixelify Sans', sans-serif;
   margin: auto; /* Để căn giữa form */
+  margin-top: 170px;
 }
 
 /* Form groups */
 .form-group {
+
   margin-bottom: 15px;
 }
 
