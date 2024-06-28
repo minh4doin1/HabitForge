@@ -1,0 +1,16 @@
+<div class="home-container">
+    <div class="land" id="my-home" (click)="navigateTo('my-home')" (mouseover)="showTooltip('my-home')" (mouseout)="hideTooltip('my-home')">
+      <div class="tooltip" id="tooltip-my-home">My Home: Your personal space.</div>
+    </div>
+    <div class="land" id="habit-farm" (click)="navigateTo('habit-farm')" (mouseover)="showTooltip('habit-farm')" (mouseout)="hideTooltip('habit-farm')">
+      <div class="tooltip" id="tooltip-habit-farm">Habit Farm: Track and grow your habits.</div>
+    </div>
+    <div class="land" id="intelligence-library" (click)="navigateTo('intelligence-library')" (mouseover)="showTooltip('intelligence-library')" (mouseout)="hideTooltip('intelligence-library')">
+      <div class="tooltip" id="tooltip-intelligence-library">Intelligence Library: Knowledge and resources.</div>
+    </div>
+    <div class="land" id="schedule-quest" (click)="navigateTo('schedule-quest')" (mouseover)="showTooltip('schedule-quest')" (mouseout)="hideTooltip('schedule-quest')">
+      <div class="tooltip" id="tooltip-schedule-quest">Schedule Quest: Plan your adventures.</div>
+    </div>
+    <img src="assets/character.png" class="character" [ngStyle]="characterStyle">
+  </div>
+  

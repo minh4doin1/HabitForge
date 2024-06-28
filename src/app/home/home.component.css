@@ -1,0 +1,56 @@
+.home-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: url('/homepage.jpg') no-repeat center center;
+    background-size: cover;
+  }
+  .land:hover {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Viền sáng */
+    transform: scale(1.05); /* Phóng to */
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Hiệu ứng chuyển động */
+}
+
+  .land {
+    position: absolute;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  #my-home {
+    width: 200px; /* Adjust size as needed */
+    height: 200px; /* Adjust size as needed */
+    top: 20%;
+    left: 10%;
+  }
+  
+  #habit-farm {
+    width: 180px; /* Adjust size as needed */
+    height: 180px; /* Adjust size as needed */
+    top: 70%;
+    left: 20%;
+  }
+  
+  #intelligence-library {
+    width: 220px; /* Adjust size as needed */
+    height: 220px; /* Adjust size as needed */
+    top: 10%;
+    left: 60%;
+  }
+  
+  #schedule-quest {
+    width: 240px; /* Adjust size as needed */
+    height: 240px; /* Adjust size as needed */
+    top: 50%;
+    left: 50%;
+  }
+  
+  .character {
+    position: absolute;
+    width: 50px; /* Adjust size of character */
+    height: 50px; /* Adjust size of character */
+    top: 50%; /* Initial position */
+    left: 10%; /* Initial position */
+    transition: all 0.3s ease-in-out;
+  }
+  
