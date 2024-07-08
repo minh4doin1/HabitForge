@@ -29,31 +29,31 @@
   }
   
   #my-home {
-    width: 200px; /* Adjust size as needed */
-    height: 200px; /* Adjust size as needed */
-    top: 20%;
-    left: 10%;
+    width: 300px; /* Adjust size as needed */
+    height: 300px; /* Adjust size as needed */
+    top: 28%;
+    left: 18%;
   }
   
   #habit-farm {
-    width: 180px; /* Adjust size as needed */
-    height: 180px; /* Adjust size as needed */
+    width: 800px; /* Adjust size as needed */
+    height: 300px; /* Adjust size as needed */
     top: 70%;
-    left: 20%;
+    left: 50%;
   }
   
   #intelligence-library {
     width: 220px; /* Adjust size as needed */
-    height: 220px; /* Adjust size as needed */
-    top: 10%;
-    left: 60%;
+    height: 500px; /* Adjust size as needed */
+    top: 16%;
+    left: 70%;
   }
   
   #schedule-quest {
-    width: 240px; /* Adjust size as needed */
-    height: 240px; /* Adjust size as needed */
-    top: 50%;
-    left: 50%;
+    width: 400px; /* Adjust size as needed */
+    height: 300px; /* Adjust size as needed */
+    top: 10%;
+    left: 46%;
   }
   
   .character {
@@ -64,4 +64,3 @@
     left: 10%; /* Initial position */
     transition: all 0.3s ease-in-out;
   }
-  
