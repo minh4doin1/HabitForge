@@ -1,67 +1,70 @@
 <!-- habit-farm.component.html -->
-<img src="src/assets/homepage.jpg" class="bg-img">
-<div class="habit-farm-container">
-    <div class="habit-plots">
-        <!-- Plot areas for planting habits -->
-        <div class="plot" *ngFor="let plot of plots">
-            <!-- Display habit details and remaining time -->
-            <div class="plot-content">
-                <img [src]="plot.icon" class="habit-icon">
-                <div class="habit-details">
-                    <div class="habit-name">{{ plot.name }}</div>
-                    <div class="habit-time-left">{{ plot.timeLeft }}</div>
-                </div>
-            </div>
-            <!-- Button to set time for the plot -->
-            <button class="set-time-btn">Set Time</button>
-        </div>
-    </div>
     <div class="side-menu">
         <!-- Add Habit button -->
         <button class="add-habit-btn" (click)="togglePopup()">+</button>
-        <div class="popup-menu" *ngIf="showPopup">
-            <h3>Add New Habit</h3>
-            <div class="form-group">
-                <label for="habitName">Habit Name:</label>
-                <input type="text" id="habitName" class="form-control" [(ngModel)]="newHabit.name">
-            </div>
-            <div class="form-group">
-                <label for="habitTime">Harvest Time (hours):</label>
-                <input type="number" id="habitTime" class="form-control" [(ngModel)]="newHabit.harvestTime">
-            </div>
-            <div class="form-group">
-                <label for="habitIcon">Select Icon:</label>
-                <select id="habitIcon" class="form-control" [(ngModel)]="newHabit.icon">
-                    <option value="icon1">Icon 1</option>
-                    <option value="icon2">Icon 2</option>
-                    <!-- Add more options as needed -->
-                </select>
-            </div>
-            <button class="btn btn-primary" (click)="addHabit()">Add Habit</button>
-        </div>
         <!-- Icons for existing habits -->
         <div class="existing-habits">
-            <img src="path_to_icon1" class="habit-icon" (dragstart)="dragStart($event)">
-            <img src="path_to_icon2" class="habit-icon" (dragstart)="dragStart($event)">
-            <img src="path_to_icon3" class="habit-icon" (dragstart)="dragStart($event)">
-            <img src="path_to_icon1" class="habit-icon" (dragstart)="dragStart($event)">
-            <img src="path_to_icon2" class="habit-icon" (dragstart)="dragStart($event)">
-            <img src="path_to_icon3" class="habit-icon" (dragstart)="dragStart($event)">
-            <img src="path_to_icon1" class="habit-icon" (dragstart)="dragStart($event)">
-            <img src="path_to_icon2" class="habit-icon" (dragstart)="dragStart($event)">
-            <img src="path_to_icon3" class="habit-icon" (dragstart)="dragStart($event)">
-            <img src="path_to_icon1" class="habit-icon" (dragstart)="dragStart($event)">
-            <img src="path_to_icon2" class="habit-icon" (dragstart)="dragStart($event)">
-            <img src="path_to_icon3" class="habit-icon" (dragstart)="dragStart($event)">
-            <img src="path_to_icon2" class="habit-icon" (dragstart)="dragStart($event)">
-            <img src="path_to_icon3" class="habit-icon" (dragstart)="dragStart($event)">
+            <img src="path_to_icon1" class="habit-icon" >
+            <img src="path_to_icon2" class="habit-icon" >
+            <img src="path_to_icon3" class="habit-icon" >
+            <img src="path_to_icon1" class="habit-icon" >
+            <img src="path_to_icon2" class="habit-icon" >
+            <img src="path_to_icon3" class="habit-icon" >
+            
             <!-- Add more icons as needed -->
         </div>
 
         <!-- Trash bin for deleting habits -->
-        <div class="trash-bin" (dragover)="allowDrop($event)" (drop)="drop($event)">
+        <div class="trash-bin" >
             <img src="path_to_trash_icon" class="trash-icon">
             <p>Drop here to delete</p>
         </div>
+ 
     </div>
-</div>
+    <!-- Popup menu -->
+    
+    <div class="popup-menu" *ngIf="showPopup">
+        <div class="add-form">
+            <div class="form-group">
+                <label for="habitName">Habit Name:</label>
+                <input type="text" id="habitName" class="form-control" [(ngModel)]="newHabit.name" required maxlength="50">
+                <div class="text-danger" *ngIf="newHabitForm.get('name')?.invalid && (newHabitForm.get('name')?.dirty || newHabitForm.get('name')?.touched)">
+                    Name is required and must be less than 50 characters.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="habitHours">Harvest Hours:</label>
+                <input type="number" id="habitHours" class="form-control" [(ngModel)]="newHabit.hours" required min="0">
+                <div class="text-danger" *ngIf="newHabitForm.get('hours')?.invalid && (newHabitForm.get('hours')?.dirty || newHabitForm.get('hours')?.touched)">
+                    Hours must be a positive number.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="habitMinutes">Harvest Minutes:</label>
+                <input type="number" id="habitMinutes" class="form-control" [(ngModel)]="newHabit.minutes" required min="1">
+                <div class="text-danger" *ngIf="newHabitForm.get('minutes')?.invalid && (newHabitForm.get('minutes')?.dirty || newHabitForm.get('minutes')?.touched)">
+                    Minutes must be at least 1.
+                </div>
+            </div>
+        </div>
+        
+        <div class="popup-content">
+            <div class="icon-selection">
+                <label for="habitIcon">Select Icon:</label>
+                <div class="icon-table">
+                    <div class="icon-grid">
+                        <div *ngFor="let icon of iconOptions" class="icon-option" (click)="selectIcon(icon.value)">
+                            <img [src]="icon.url" alt="Icon" [class.selected]="icon.value === newHabit.icon">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-primary" (click)="addHabit()" [disabled]="newHabitForm.invalid">Add Habit</button>
+                <button class="btn btn-danger" (click)="cancelAdd()">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+
+

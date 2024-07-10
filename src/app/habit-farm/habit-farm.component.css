@@ -1,4 +1,4 @@
-/* habit-farm.component.css */
+habit-farm.component.css
 .bg-img {
     position: fixed; /* Đảm bảo background ảnh cố định và nằm phía sau */
     z-index: -1; /* Đặt z-index nhỏ hơn để nằm phía sau các phần tử khác */
@@ -10,93 +10,125 @@
     top: 0;
     left: 0;
   }
-.habit-farm-container {
-    display: flex;
-    justify-content: space-between;
+  .side-menu {
+    background-color: #d78c2b; /* Terra cotta brown-orange */
     padding: 20px;
-}
-
-
-
-.side-menu {
-    width: 28%; /* 2/7 of the remaining screen */
-    background-color: #8b5a2b; /* Màu nâu đồng quê */
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    width: 20%;
+    height: 100%; /* Adjust height as needed */
     display: flex;
     flex-direction: column;
-    left: 10px;
-    text-align: right;
-    position: fixed; /* Đảm bảo menu cố định trên màn hình */
-  left: 0; /* Đẩy menu về bên trái */
-  top: 0; /* Đẩy menu lên trên cùng */
-  width: 350px; /* Độ rộng của menu (thay đổi theo nhu cầu) */
-  height: 100%; /* Chiều cao của menu (thay đổi theo nhu cầu) */
-  padding: 20px; /* Khoảng cách nội dung từ viền của menu */
-  box-sizing: border-box; /* Đảm bảo padding không làm thay đổi kích thước của menu */
+    justify-content: space-between;
+    padding-top: 20px; /* Adjust top padding */
+    z-index: 1000; /* Ensure it's above other content */
+    border-right: 5px solid #3a2109; /* Border color and style */
 }
 
 .add-habit-btn {
+    height: 100px;
+    width: 100%;
+    border-radius: 5%;
+    color: rgb(170, 100, 14);
+    background-color: #e4a34f; /* Green background color */
+    color: white;
     font-size: 24px;
-    width: 300px;
-    height: 70px;
-    background-color: #f7be02; /* Màu nền nút '+' */
-    color: #8b5a2b; /* Màu chữ */
-    border: none; /* Hình tròn */
-    cursor: pointer;
-    margin-bottom: 10px;
-    align-self: center; /* Đưa nút '+' vào giữa */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: cell;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for depth */
 }
 
 .add-habit-btn:hover {
-    background-color: #ed9417; /* Màu hover */
+    background-color: #e4c754;
+}
+
+.popup-menu {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    background-color: #f7e6d1; /* Light brownish-orange background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
+    display: flex;
+    justify-content: space-around;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    color: #5c4033; /* Dark brownish color for labels */
+}
+
+.icon-group {
+    margin-bottom: 15px;
+    display: block;
+    color: #5c4033; }
+
+.btn-group {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.btn-cancel {
+    margin-left: 10px;
+    background-color: #e74c3c; /* Red color for Cancel button */
+    color: #fff; /* White text color */
+    border-color: #c0392b; /* Darker red for border */
+}
+
+.text-danger {
+    color: #e74c3c; /* Red color for error messages */
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.icon-selection {
+    width: 200px; /* Adjust width as needed */
+    margin-left: 20px; /* Space between form and icon selection */
+}
+
+.icon-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns grid */
+    gap: 10px; /* Space between icons */
+}
+
+.icon-option {
+    width: 50px; /* Adjust size as needed */
+    height: 50px;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Shadow effect */
+}
+
+.icon-option img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure images fill the container */
+    border-radius: 4px;
+}
+
+.selected {
+    border: 2px solid #daa520; /* Goldenrod border when selected */
+}
+
+.delete-btn {
+    height: 100px;
+    width: 100%;
+    margin-bottom: 10px;
+    color: rgb(170, 100, 14);
+    background-color: #e4a34f;
+    cursor: grabbing;
 }
 
 .existing-habits {
-    display: flex;
-    flex-wrap: wrap; /* Cho phép các item tự động xuống dòng khi không đủ chỗ */
-    gap: 10px; /* Khoảng cách giữa các icon */
-}
-/* habit-farm.component.css */
-
-.popup-menu {
-    position: absolute;
-    background-color: #f0f0f0;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    top: 50px; /* Dịch chuyển lên xuống tùy theo vị trí cần thiết */
-    left: calc(100% - 220px); /* Dịch chuyển sang phải */
-    display: none; /* Ẩn ban đầu */
+    margin-top: 20px;
 }
 
-.popup-menu.active {
-    display: block; /* Hiển thị khi active */
-}
-
-.habit-icon {
-    flex: 0 0 calc(33% - 10px); /* Chiếm 1/3 phần tử trong flex container, trừ đi khoảng cách giữa các icon */
-    max-width: calc(33% - 10px); /* Đảm bảo icon không vượt quá 1/3 chiều rộng */
-    height: 90px; /* Chiều cao tự động điều chỉnh theo tỉ lệ */
-    border: 2px solid #f0f0f0; /* Viền */
-    cursor: pointer;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Đổ bóng */
-}
-
-
-.trash-bin {
-    border: 2px dashed #333;
-    padding: 10px;
-    text-align: center;
-    cursor: pointer;
-    margin-top: auto; /* Đẩy thùng rác xuống dưới cùng */
-}
-
-.trash-icon {
-    width: 30px;
-    height: 30px;
-    margin-bottom: 5px;
-}
