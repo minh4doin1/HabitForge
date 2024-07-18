@@ -1,0 +1,340 @@
+:host {
+    position: fixed;
+    width: 97%;
+    height: 95%;
+    background-color: rgba(57, 53, 53, 0.979); /* Màu nền với độ mờ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999; /* Đảm bảo desk luôn hiển thị trên các thành phần khác */
+    border-radius: 5px;
+  }
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1001; /* Đảm bảo nút đóng hiển thị trên cùng */
+}
+
+.close-btn:hover {
+    color: #ccc; /* Thay đổi màu khi hover */
+}
+  .side-menu {
+    /* Đảm bảo menu luôn hiển thị tại vị trí cố định */
+    background-color: #684603; /* Màu nền nâu */
+    border-right: 2px solid #8a6745; /* Đường viền bên phải */
+    width: 18%; /* Chiếm 15% của màn hình */
+    height: 100%; /* Chiều cao tối đa của side menu */
+    top: 0; /* Đẩy menu lên trên cùng */
+    left: 0; /* Đẩy menu sang trái cùng */
+    border-radius: 5px;
+    z-index: 1000; /* Đảm bảo menu luôn hiển thị trên cùng */
+  }
+  .menu-btn {
+    display: block;
+    height: 30%;
+    width: 95%;
+    padding: 12px 20px; /* Điều chỉnh padding để nút lớn hơn */
+    margin-bottom: 12px; /* Điều chỉnh margin */
+    margin: auto;
+    align-items: center;
+    border:3px dashed #8a6745 ;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #7e6043; /* Màu chữ */
+    background-color: transparent; /* Nền trong suốt */
+    margin-top: 4px;
+    background-color: #c6a679;
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển đổi màu nền */
+  }
+  
+  .menu-btn:hover {
+    background-color: #855d0d; /* Màu nền khi hover */
+  }
+
+  .search-box {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-box input[type="text"] {
+    width: 70%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 20px; /* Độ cong viền */
+    box-sizing: border-box;
+    outline: none; /* Loại bỏ đường viền khi focus */
+    transition: border-color 0.3s ease; /* Hiệu ứng chuyển đổi màu viền */
+  }
+  
+  .search-box input[type="text"]:focus {
+    border-color: #7c5430; /* Màu viền khi focus */
+  }
+  
+  .search-btn {
+  
+    margin-left: 10px; /* Khoảng cách giữa nút tìm kiếm và ô input */
+    border: 1px solid #ccc;
+    border-radius: 20px; /* Độ cong viền */
+    background-color: transparent;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển đổi màu nền */
+  }
+  
+  .search-btn:hover {
+    background-color: #f0f0f0; /* Màu nền khi hover */
+  }
+ 
+  .main-desk {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 85%; /* Chiếm 85% của màn hình */
+    height: 100%;
+    overflow-x: hidden;/* Cho phép cuộn nếu nội dung vượt khỏi kích thước */
+    padding: 20px;
+    box-sizing: border-box;
+    gap: 20px;
+  }
+  /* CSS for book overlay */
+.book {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Màu nền mờ */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CSS for book modal */
+.book-modal {
+  background-color: #fff;
+  padding: 20px;
+  position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-left: 16%;
+    width: 78%; /* Chiếm 85% của màn hình */
+    height: 90%;
+    overflow-x: hidden;/* Cho phép cuộn nếu nội dung vượt khỏi kích thước */
+    padding: 20px;
+    box-sizing: border-box;
+   z-index: 10;
+   border-radius: 5px;
+   gap: 20px; /* Giới hạn chiều rộng tối đa */
+}
+
+.book-modal h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.book-modal p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.book-modal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.book-modal form label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #666;
+}
+
+.book-modal form input[type="text"],
+.book-modal form textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.book-modal form input[type="text"]:focus,
+.book-modal form textarea:focus {
+  border-color: #7c5430;
+}
+
+.book-modal form button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.book-modal form button:hover {
+  background-color: #45a049;
+}
+
+.book-modal form button[type="button"] {
+  background-color: #e3e6ea;
+  color: #666;
+  margin-top: 0;
+}
+
+.book-modal form button[type="button"]:hover {
+  background-color: #cfd4d9;
+}
+
+  .book-content {
+    display: block; /* Đảm bảo các phần nội dung khác hiển thị mặc định */
+  }
+  
+  .book-content.hide-when-adding-book {
+    display: none; /* Ẩn phần nội dung khi giao diện thêm sách được mở */
+  }
+
+  .carousel-nav {
+    width: 60px;
+    height: 60px;
+    position: fixed; /* Đặt vị trí tuyệt đối */
+    top: 50%; /* Đặt nút ở giữa theo chiều dọc */
+    transform: translateY(-50%);
+    z-index: 10;
+    cursor: pointer;
+    opacity: 0;
+    background-color: #4e3920;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 20px;
+    transition: background-color 0.3s;
+  }
+  
+  .carousel-nav.prev-btn {
+    top: 60%;
+    left: 20%; /* Khoảng cách từ cạnh trái màn hình */
+    transform: translateY(-50%); /* Giữ nút ở giữa theo chiều dọc */
+  }
+  
+  .carousel-nav.next-btn {
+    top: 60%;
+    right: 28px; /* Khoảng cách từ cạnh phải màn hình */
+    transform: translateY(-50%); /* Giữ nút ở giữa theo chiều dọc */
+  }
+  
+  .carousel-nav:hover {
+    background-color: #555;
+    opacity: 1;
+  }
+/* template-section.css */
+
+.template-section .carousel-nav {
+  position: fixed; /* Đặt vị trí tuyệt đối */
+  top: 21%; /* Đặt nút ở giữa theo chiều dọc */
+  transform: translateY(-50%); /* Giữ nút ở giữa theo chiều dọc */
+  right: 20px; /* Khoảng cách từ cạnh phải màn hình */
+  z-index: 10; /* Đảm bảo nút hiển thị trên các phần tử khác */
+}
+.template-section .carousel-nav.next-btn {
+  right: 2%; /* Lùi nút nav next sang trái 40px */
+}
+
+  .template-carousel,
+  .book-carousel {
+    position: relative;
+    display: flex;
+    gap: 20px;
+    overflow: hidden; /* Ẩn các phần tràn */
+    scroll-behavior: smooth; /* Hiệu ứng cuộn mượt */
+  }
+ 
+  .template-card{
+    flex: 0 0 auto;
+    margin-top: 5%;
+    height: 80%;
+    width: 250px; /* Kích thước của mỗi sách */
+    flex-shrink: 0; /* Ngăn không cho các sách co lại khi container nhỏ hơn */
+    scroll-snap-align: start; /* Căn chỉnh sách để snap khi cuộn */
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    position: relative; /* Để thẻ sách có thể có z-index */
+    z-index: 0; /* Z-index mặc định của các card sách */
+    /* Các CSS khác của book-card */
+  }
+  
+  .template-card:hover,
+  .book-card:hover {
+    transform: scale(1.05); /* Phóng to khi hover */
+  }
+  
+
+.template-section{
+  position: relative;
+  flex:1;
+    overflow: hidden; /* Cho phép cuộn ngang khi nội dung vượt khỏi kích thước container */
+    display: flex;
+    justify-content: flex-start; 
+   
+}
+.recent-books-section {
+  position: relative;
+ flex:2;
+    overflow: hidden; /* Cho phép cuộn ngang khi nội dung vượt khỏi kích thước container */
+    display: flex;
+    justify-content: flex-start;
+  }
+  .book-card {
+    flex: 0 0 auto;
+    margin-top: 1%;
+    height: 90%;
+    width: 250px; /* Kích thước của mỗi sách */
+    flex-shrink: 0; /* Ngăn không cho các sách co lại khi container nhỏ hơn */
+    scroll-snap-align: start; /* Căn chỉnh sách để snap khi cuộn */
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    position: relative; /* Để thẻ sách có thể có z-index */
+    z-index: 0; /* Z-index mặc định của các card sách */
+  
+  }
+  .book-icon img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .book-info {
+    margin-top: 10px;
+  }
+  
+  .book-title {
+    font-size: 18px;
+    margin-bottom: 5px;
+  }
+  
+  .book-description {
+    font-size: 14px;
+    color: #666;
+  }

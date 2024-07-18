@@ -1,4 +1,11 @@
-habit-farm.component.css
+.habit-farm-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100%;
+    overflow-x: auto; /* Cho phép scroll ngang nếu cần */
+}
 .bg-img {
     position: fixed; /* Đảm bảo background ảnh cố định và nằm phía sau */
     z-index: -1; /* Đặt z-index nhỏ hơn để nằm phía sau các phần tử khác */
@@ -13,14 +20,65 @@ habit-farm.component.css
   .side-menu {
     background-color: #d78c2b; /* Terra cotta brown-orange */
     padding: 20px;
-    width: 20%;
-    height: 100%; /* Adjust height as needed */
+    width: 90vh;
+    height: 100vh; /* Adjust height as needed */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding-top: 20px; /* Adjust top padding */
     z-index: 1000; /* Ensure it's above other content */
     border-right: 5px solid #3a2109; /* Border color and style */
+
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+.habit-shelves {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.shelf {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%; /* Full width */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 6 columns per row */
+}
+
+.habit-card {
+    width: 80px;
+    height: 90px;
+    text-align: center;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Align name and time to the bottom */
+    cursor: grab;
+}
+
+.habit-icon {
+    width: 40px;
+    height: 40px;
+    margin: auto; /* Center align icon horizontally and vertically */
+}
+
+.habit-name {
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 0px; /* Space between icon and name */
+}
+
+.habit-time {
+    font-size: 10px;
+    color: #888;
+    text-align: center;
+    margin-top: -10px;
 }
 
 .add-habit-btn {
@@ -42,7 +100,53 @@ habit-farm.component.css
 .add-habit-btn:hover {
     background-color: #e4c754;
 }
-
+.plots-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    height: 100vh;
+    overflow-x: auto;
+   }
+  
+  .plot {
+    width: 200px;
+    height: 200px;
+    border: 1px solid #ccc;
+    position: relative;
+  }
+  
+  .plot-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .plot-content {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .habit-card-floating {
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+  }
 .popup-menu {
     position: fixed;
     top: 50%;
@@ -55,6 +159,7 @@ habit-farm.component.css
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
     display: flex;
     justify-content: space-around;
+    
 }
 
 .form-group {
@@ -98,6 +203,11 @@ habit-farm.component.css
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 columns grid */
     gap: 10px; /* Space between icons */
+    overflow-y: auto;
+}
+.icon-table {
+    height: 200px; /* Chiều cao cố định */
+    overflow-y: auto; /* Kích hoạt thanh cuộn dọc */
 }
 
 .icon-option {
@@ -114,21 +224,29 @@ habit-farm.component.css
     object-fit: cover; /* Ensure images fill the container */
     border-radius: 4px;
 }
-
-.selected {
-    border: 2px solid #daa520; /* Goldenrod border when selected */
-}
-
-.delete-btn {
+.trash-bin{
     height: 100px;
     width: 100%;
-    margin-bottom: 10px;
+    border-radius: 5%;
     color: rgb(170, 100, 14);
-    background-color: #e4a34f;
-    cursor: grabbing;
+    background-color: #e4a34f; /* Green background color */
+    color: white;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional: Add shadow for depth */
 }
-
-.existing-habits {
-    margin-top: 20px;
+.trash-bin-btn:hover {
+    background-color: #e48954;
+}
+.trash-icon{
+    width: 30px;
+    height: 30px;
+}
+.selected {
+    border: 2px solid #daa520; /* Goldenrod border when selected */
 }
 

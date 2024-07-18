@@ -1,0 +1,36 @@
+.lib-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+  }
+  
+  .background-image {
+    position: fixed;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    top: 0;
+    left: 0;
+  }
+  
+  .intellibrary {
+    padding: 20px;
+    height: 100%;
+  }
+  
+  .desk {
+    position: absolute;
+    bottom: 6%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    height: 37%;
+    cursor: pointer;
+  }
+  .desk:hover{ 
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Viền sáng */
+   }

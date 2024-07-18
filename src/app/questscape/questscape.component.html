@@ -1,1 +1,8 @@
-<p>questscape works!</p>
+<img src="assets\quesm.png" alt="QuestScape Background" class="background-image">
+<div class="questscape">
+    <div class="map"(click)="openCal()"></div>
+    <app-calender *ngIf="isCalOpen"(closeCalEvent)="closeCal()" class="map-popup"></app-calender>
+    <div class="list"(click)="openList()"></div>
+    <app-todo-list *ngIf="isListOpen"(closeListEvent)="closeList()" class="list-popup"></app-todo-list>
+</div>
+

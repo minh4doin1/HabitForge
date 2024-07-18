@@ -1,0 +1,83 @@
+<button class="close-btn" (click)="closeDesk()">X</button> 
+<div class="side-menu">
+  <!-- Nội dung side menu (như đã cung cấp trong các bước trước) -->
+  <div class="search-box">
+    <input type="text" placeholder="Tìm kiếm...">
+    <button class="search-btn">Tìm kiếm</button>
+  </div>
+  <button class="menu-btn" (click)="openAddBook()">
+    Thêm sách
+  </button>
+  <button class="menu-btn" (click)="openAddShelf()">
+    <span class="icon plus-icon"></span> Thêm kệ sách
+  </button>
+  <button class="menu-btn"><span class="icon trash-icon"></span>Xóa</button>
+</div>
+
+<div class="main-desk">
+  <!-- Phần template -->
+  <div class="template-section">
+    <div class="template-carousel">
+      <button class="carousel-nav prev-btn" (click)="prevTemplate()">&lt;</button>
+      <div class="template-card" *ngFor="let template of templates">
+        <div class="template-info">
+          <h3 class="template-title">{{ template.title }}</h3>
+          <p class="template-description">{{ template.description }}</p>
+        </div>
+      </div>
+      <!-- Add more template cards as needed -->
+      <button class="carousel-nav next-btn" (click)="nextTemplate()">&gt;</button>
+    </div>
+  </div>
+
+  <!-- recentbooks -->
+  <div class="recent-books-section">
+    <div class="book-carousel">
+      <button class="carousel-nav prev-btn" (click)="prevBook">&lt;</button>
+      <div class="book-card" *ngFor="let book of recentBooks">
+        <div class="book-icon">
+          <!-- Icon sách (thay bằng hình ảnh hoặc SVG nếu có) -->
+          <img src="assets/book1.png" alt="Book Icon">
+        </div>
+        <div class="book-info">
+          <!-- Tiêu đề sách -->
+          <h3 class="book-title">{{ book.title }}</h3>
+          <!-- Mô tả sách -->
+          <p class="book-description">{{ book.description }}</p>
+        </div>
+      </div>
+      <button class="carousel-nav next-btn" (click)="nextBook()">&gt;</button>
+    </div>
+  </div>
+  <div class="shelf" *ngIf="isAddingShelf">
+    <div class="shelf-modal">
+      <h3>Thêm kệ sách mới</h3>
+      <p>Vui lòng nhập tên kệ sách và chọn sách:</p>
+      <form (submit)="addShelf()">
+        <label for="shelfName">Tên kệ sách:</label>
+        <input type="text" id="shelfName" name="shelfName" [(ngModel)]="newShelfName">
+        <label for="shelfBooks">Chọn sách:</label>
+        <select id="shelfBooks" name="shelfBooks" multiple [(ngModel)]="selectedBooks">
+          <option *ngFor="let book of books" [value]="book.id">{{ book.title }}</option>
+        </select>
+        <button type="submit">Thêm kệ sách</button>
+        <button type="button" (click)="closeAddShelf()">Hủy</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="book" *ngIf="isAddingBook">
+    <div class="book-modal">
+      <h3>Thêm sách mới</h3>
+      <p>Vui lòng nhập tiêu đề và mô tả của sách:</p>
+      <form (submit)="addBook()">
+        <label for="title">Tiêu đề sách:</label>
+        <input type="text" id="title" name="title" [(ngModel)]="newBookTitle">
+        <label for="description">Mô tả:</label>
+        <textarea id="description" name="description" [(ngModel)]="newBookDescription"></textarea>
+        <button type="submit">Thêm sách</button>
+        <button type="button" (click)="closeAddBook()">Hủy</button>
+      </form>
+    </div>
+  </div>
+</div>

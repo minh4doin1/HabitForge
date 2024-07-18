@@ -1,50 +1,63 @@
-<!-- habit-farm.component.html -->
+<div class="habit-farm-container">
+    <img src="assets\grass.png" class="bg-img">
     <div class="side-menu">
         <!-- Add Habit button -->
         <button class="add-habit-btn" (click)="togglePopup()">+</button>
         <!-- Icons for existing habits -->
-        <div class="existing-habits">
-            <img src="path_to_icon1" class="habit-icon" >
-            <img src="path_to_icon2" class="habit-icon" >
-            <img src="path_to_icon3" class="habit-icon" >
-            <img src="path_to_icon1" class="habit-icon" >
-            <img src="path_to_icon2" class="habit-icon" >
-            <img src="path_to_icon3" class="habit-icon" >
+        <div class="habit-shelves" (dragover)="onDragOver($event)" (dragenter)="onDragEnter($event)">
             
-            <!-- Add more icons as needed -->
+            <div class="shelf">
+                <div *ngFor="let habit of habits" class="habit-card" draggable="true" 
+           (dragstart)="onDragStart($event, habit)">
+                    <img [src]="habit.iconUrl" class="habit-icon">
+                    <p class="habit-name">{{ habit.name }}</p>
+                    <p class="habit-time">{{ habit.hours }}h {{ habit.minutes }}m</p>
+                </div>
+            </div>
         </div>
-
         <!-- Trash bin for deleting habits -->
-        <div class="trash-bin" >
-            <img src="path_to_trash_icon" class="trash-icon">
+        <div class="trash-bin" (dragover)="onDragOver($event)" (drop)="onDrop($event)">
+            <img src="assets\trash can.jpg" class="trash-icon">
             <p>Drop here to delete</p>
         </div>
- 
+    </div>
+    <div class="plots-section">
+        <div class="plot" *ngFor="let plot of plots"[style.background-image]="'url(' + plot.imageUrl + ')'" [style.background-size]="'cover'" [style.background-position]="'center'" (dragover)="onDragOver($event)" (dragenter)="onDragEnter($event)">
+           
+            <div class="plot-container" (drop)="onDropHabit($event, plot)">
+                <div class="plot-content" *ngIf="plot.habit">
+                    <div class="habit-card-floating">
+                        <img [src]="plot.habit.iconUrl" class="habit-icon">
+                        <p class="habit-name">{{ plot.habit.name }}</p>
+                        <p class="habit-time">{{ plot.timeLeft }}</p>
+                    </div>
+                    <p class="time-left"></p> 
+                </div>
+                <div class="plot-empty" *ngIf="!plot.habit" (dragenter)="onDragEnter($event)">
+                    
+                  </div>
+            </div>
+        </div>
     </div>
     <!-- Popup menu -->
-    
+</div>  
     <div class="popup-menu" *ngIf="showPopup">
         <div class="add-form">
             <div class="form-group">
                 <label for="habitName">Habit Name:</label>
                 <input type="text" id="habitName" class="form-control" [(ngModel)]="newHabit.name" required maxlength="50">
-                <div class="text-danger" *ngIf="newHabitForm.get('name')?.invalid && (newHabitForm.get('name')?.dirty || newHabitForm.get('name')?.touched)">
-                    Name is required and must be less than 50 characters.
-                </div>
+                <div class="text-danger" *ngIf="newHabit.name.length === 0">Name is required.</div>
+                <div class="text-danger" *ngIf="newHabit.name.length > 50">Name must be less than 50 characters.</div>
             </div>
             <div class="form-group">
                 <label for="habitHours">Harvest Hours:</label>
                 <input type="number" id="habitHours" class="form-control" [(ngModel)]="newHabit.hours" required min="0">
-                <div class="text-danger" *ngIf="newHabitForm.get('hours')?.invalid && (newHabitForm.get('hours')?.dirty || newHabitForm.get('hours')?.touched)">
-                    Hours must be a positive number.
-                </div>
+                <div class="text-danger" *ngIf="newHabit.hours === null || newHabit.hours < 0">Hours must be a positive number.</div>
             </div>
             <div class="form-group">
                 <label for="habitMinutes">Harvest Minutes:</label>
-                <input type="number" id="habitMinutes" class="form-control" [(ngModel)]="newHabit.minutes" required min="1">
-                <div class="text-danger" *ngIf="newHabitForm.get('minutes')?.invalid && (newHabitForm.get('minutes')?.dirty || newHabitForm.get('minutes')?.touched)">
-                    Minutes must be at least 1.
-                </div>
+                <input type="number" id="habitMinutes" class="form-control" [(ngModel)]="newHabit.minutes" required min="0">
+                <div class="text-danger" *ngIf="newHabit.minutes === null || newHabit.minutes < 1">Minutes must be at least 1.</div>
             </div>
         </div>
         
@@ -58,13 +71,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>            
             <div class="btn-group">
-                <button class="btn btn-primary" (click)="addHabit()" [disabled]="newHabitForm.invalid">Add Habit</button>
+                <button class="btn btn-primary" (click)="addHabit()" [disabled]="!newHabitForm.invalid">Add Habit</button>
                 <button class="btn btn-danger" (click)="cancelAdd()">Cancel</button>
             </div>
         </div>
     </div>
-    
 
 

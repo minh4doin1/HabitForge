@@ -1,0 +1,184 @@
+.close-btn {
+  font-family: 'Pixelated', sans-serif;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1001; /* Đảm bảo nút đóng hiển thị trên cùng */
+}
+:host {
+  position: fixed;
+  width: 97%;
+  height: 95%;
+  background-color: rgba(57, 53, 53, 0.979); /* Màu nền với độ mờ */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999; /* Đảm bảo desk luôn hiển thị trên các thành phần khác */
+  border-radius: 5px;
+  font-family: 'Pixelated', sans-serif;
+}
+body {
+    font-family: 'Pixelated', sans-serif;
+    background-color: #f0e5cf;
+  }
+
+  
+  .side-menu {
+    /* Đảm bảo menu luôn hiển thị tại vị trí cố định */
+    background-color: #684603; /* Màu nền nâu */
+    border-right: 2px solid #8a6745; /* Đường viền bên phải */
+    width: 18%; /* Chiếm 15% của màn hình */
+    height: 100%; /* Chiều cao tối đa của side menu */
+    top: 0; /* Đẩy menu lên trên cùng */
+    left: 0; /* Đẩy menu sang trái cùng */
+    border-radius: 5px;
+  }
+  
+  .side-menu h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .menu-buttons {
+    margin-top: 20px;
+  }
+  
+  .menu-btn {
+    display: block;
+    height: 30%;
+    width: 95%;
+    padding: 12px 20px; /* Điều chỉnh padding để nút lớn hơn */
+    margin-bottom: 12px; /* Điều chỉnh margin */
+    margin: auto;
+    align-items: center;
+    border:3px dashed #8a6745 ;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #7e6043; /* Màu chữ */
+    background-color: transparent; /* Nền trong suốt */
+    margin-top: 4px;
+    background-color: #c6a679;
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển đổi màu nền */
+  }
+  
+  .menu-btn:hover {
+    background-color: #855d0d; /* Màu nền khi hover */
+  }
+
+  .task-board {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 85%; /* Chiếm 85% của màn hình */
+    height: 100%;
+    overflow-x: auto;/* Cho phép cuộn nếu nội dung vượt khỏi kích thước */
+    padding: 20px;
+    box-sizing: border-box;
+    gap: 20px;
+    border-radius: 5px;
+  }
+  
+  .task-section {
+    margin-top: 40px;
+   width: 100%;
+   border-radius: 5px;
+  }
+  .task-section.high-priority {
+    background-color: #bc2243;
+  }
+  
+  .task-section.all-tasks {
+    background-color: #bfe6ff;
+  }
+  
+  .task-section.completed {
+    background-color: #c1f7d5;
+  }
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .section-header h3 {
+    font-size: 18px;
+  }
+  
+  .toggle-btn {
+    right: 3%;
+    position: absolute;
+    background-color: #ddd;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .task-list-container {
+    display: flex;
+    overflow-x: auto;
+    margin-top: 10px;
+  }
+  
+  .task-list {
+    margin-right: 5px;
+    flex: 0 0 auto;
+    gap: 5px;
+    top: 3%;
+    height: 80%;
+    width: 250px; /* Kích thước của mỗi sách */
+    flex-shrink: 0; /* Ngăn không cho các sách co lại khi container nhỏ hơn */
+    scroll-snap-align: start; /* Căn chỉnh sách để snap khi cuộn */
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    position: relative; /* Để thẻ sách có thể có z-index */
+    z-index: 0; /* Z-index mặc định của các card sách */
+    /* Các CSS khác của book-card */
+  }
+  .task-list:hover,.add-list-btn:hover{ transform: scale(1.01);}
+  .task-list h4 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .task-card {
+    background-color: #ddd;
+    padding: 5px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    font-family: 'Pixelify Sans', sans-serif;
+  }
+  
+  .add-task-btn {
+    width: 100%;
+    padding: 8px 0;
+    background-color: #ccc;
+    border: none;
+    border-radius: 4px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-family: 'Pixelify Sans', sans-serif;
+  }
+  
+  .add-list-btn {
+    position: relative;
+    flex: 0 0 auto;
+    font-family: 'Pixelify Sans', sans-serif;
+    height: 50px;
+    width: 250px;
+    background-color: #ccc;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  

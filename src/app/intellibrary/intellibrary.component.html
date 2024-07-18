@@ -1,2 +1,12 @@
-<p>intellibrary works!</p>
-<img src="/assets/homepage.jpg" class="bg-img">
+<div class="lib-container">
+    <img src="/assets/libraryBG.jpg" alt="Library Background" class="background-image">
+    <div class="intellibrary">
+      <!-- Nội dung chính của Intellibrary -->
+      <div class="desk" (click)="openDesk()">
+        <!-- Nội dung bàn làm việc -->
+        
+      </div>
+      <app-lib-desk *ngIf="isDeskOpen"(closeDeskEvent)="closeDesk()" class="desk-popup"></app-lib-desk>
+    </div>
+  </div>
+  

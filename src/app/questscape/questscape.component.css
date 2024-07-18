@@ -1,0 +1,40 @@
+.background-image {
+    position: fixed;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    top: 0;
+    left: 0;
+  }
+  .questscape {
+    padding: 20px;
+    height: 100%;
+  }
+  
+  .map {
+    position: absolute;
+    bottom: 21%;
+    left: 57%;
+    transform: translateX(-50%);
+    width: 30%;
+    height:57%;
+    cursor: pointer;
+  }
+  .map:hover{ 
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Viền sáng */
+   }
+   .list {
+    position: absolute;
+    bottom: 31%;
+    left: 36%;
+    transform: translateX(-50%);
+    width: 11%;
+    height:31%;
+    cursor: pointer;
+  }
+  .list:hover{ 
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Viền sáng */
+   }
