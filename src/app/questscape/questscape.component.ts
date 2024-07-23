@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { CalenderComponent } from '../calender/calender.component';
+import { CalendarComponent } from '../calendar/calendar.component';
 import { flattenTreeData } from 'ng-zorro-antd/core/tree';
 import { CommonModule } from '@angular/common';
 import { TodoListComponent } from '../todo-list/todo-list.component';
 @Component({
   selector: 'app-questscape',
   standalone: true,
-  imports: [CalenderComponent,CommonModule,TodoListComponent],
+  imports: [CommonModule,TodoListComponent,CalendarComponent],
   templateUrl: './questscape.component.html',
   styleUrl: './questscape.component.css'
 })

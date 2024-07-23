@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 interface Task {
   title: string;
+  description: string;
 }
 
 interface TaskList {
@@ -19,21 +21,13 @@ interface TaskSection {
   collapsed: boolean;
 }
 @Component({
-  imports:[CommonModule],
+  imports:[CommonModule,FormsModule],
   standalone:true,
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.css']
 })
 export class TodoListComponent {
-  onListDragOver(event: DragEvent) {
-    event.preventDefault();
-    // You can add additional styling or logic here if needed
-  }
-onTaskDragOver(event: DragEvent) {
-  event.preventDefault();
-  // You can add additional styling or logic here if needed
-}
 
   @Output() closeListEvent = new EventEmitter<void>();
   section: any;
@@ -66,7 +60,29 @@ onTaskDragOver(event: DragEvent) {
   draggingTask: Task | null = null;
   draggingList: TaskList | null = null;
   list!: TaskList ;
+  selectedTask: Task | null = null;
 
+  editListTitle(sectionIndex: number, listIndex: number): void {
+    const newListTitle = prompt('Enter new list title:');
+    if (newListTitle !== null && newListTitle.trim() !== '') {
+      this.taskSections[sectionIndex].taskLists[listIndex].title = newListTitle;
+    }
+  }
+
+  editTask(task: Task): void {
+    this.selectedTask = task;
+  }
+
+  saveTask(task: Task): void {
+    // Save task logic (if needed)
+    this.selectedTask = null; // Close popup
+  }
+
+  cancelEditTask(): void {
+    this.selectedTask = null; // Close popup without saving
+  }
+
+  
   closeList() {
     this.closeListEvent.emit();
   }
@@ -74,7 +90,10 @@ onTaskDragOver(event: DragEvent) {
   addTask(list: TaskList) {
     const taskName = prompt('Enter task name:');
     if (taskName) {
-      list.tasks.push({ title: taskName });
+      list.tasks.push({
+        title: taskName,
+        description: ''
+      });
     }
   }
 
@@ -88,53 +107,96 @@ onTaskDragOver(event: DragEvent) {
   toggleSection(section: TaskSection) {
     section.collapsed = !section.collapsed;
   }
-  // Phương thức để bắt đầu kéo thả task
-  dragStart(event: DragEvent, task: Task, list: TaskList) {
+
+  onTaskDragStart(event: DragEvent, task: Task, list: TaskList) {
     this.draggingTask = task;
     this.draggingList = list;
   }
 
-  // Phương thức xử lý khi task được kéo qua một list khác
+  // Method to handle drop on a task
   onTaskDrop(event: DragEvent, targetList: TaskList) {
-    if (this.draggingTask && this.draggingList && this.draggingList !== targetList) {
-      // Xóa task khỏi danh sách hiện tại
-      this.draggingList.tasks = this.draggingList.tasks.filter(task => task !== this.draggingTask);
-      // Thêm task vào danh sách mới
-      targetList.tasks.push(this.draggingTask);
-    }
-    this.resetDragState();
-  }
-
-  // Phương thức để bắt đầu kéo thả list
-  onListDragStart(event: DragEvent, list: TaskList) {
-    this.draggingList = list;
-  }
-
-  // Phương thức xử lý khi list được kéo vào một section khác
-  onListDrop(event: DragEvent, targetSection: TaskSection) {
-    if (this.draggingList) {
-      const sourceSection = this.findSectionContainingList(this.draggingList);
-      if (sourceSection && sourceSection !== targetSection) {
-        // Xác định index của list đang kéo trong section hiện tại
-        const index = sourceSection.taskLists.indexOf(this.draggingList);
-        if (index !== -1) {
-          // Xóa list khỏi section hiện tại
-          sourceSection.taskLists.splice(index, 1);
-          // Thêm list vào section mới
-          targetSection.taskLists.push(this.draggingList);
+    event.preventDefault();
+    if (this.draggingTask && this.draggingList) {
+      // Kiểm tra nếu đang thả vào cùng một danh sách
+      if (this.draggingList !== targetList || this.draggingList === targetList) {
+        // Di chuyển task vào danh sách đích
+        targetList.tasks.push(this.draggingTask);
+  
+        // Xóa task từ danh sách nguồn nếu khác
+        if (this.draggingList !== targetList) {
+          const index = this.draggingList.tasks.indexOf(this.draggingTask);
+          if (index !== -1) {
+            this.draggingList.tasks.splice(index, 1);
+          }
         }
       }
     }
     this.resetDragState();
   }
+  
 
-  // Phương thức đặt lại trạng thái khi kéo thả kết thúc
+  // Method to handle drag start on a list
+  onListDragStart(event: DragEvent, list: TaskList) {
+    this.draggingList = list;
+  }
+
+  // Method to handle drop on a list
+  onListDrop(event: DragEvent, targetSection: TaskSection) {
+    event.preventDefault();
+    if (this.draggingList) {
+      const sourceSection = this.findSectionContainingList(this.draggingList);
+      if (sourceSection && sourceSection !== targetSection) {
+        const index = sourceSection.taskLists.indexOf(this.draggingList);
+        if (index !== -1) {
+          sourceSection.taskLists.splice(index, 1);
+        }
+        targetSection.taskLists.push(this.draggingList);
+      }
+    }
+    this.resetDragState();
+  }
+
+  // Method to handle drag over on a task
+  onTaskDragOver(event: DragEvent) {
+    event.preventDefault();
+    const targetElement = event.target as HTMLElement;
+    if (targetElement.classList.contains('task-card')) {
+      targetElement.classList.add('drag-over');
+    }
+  }
+
+  // Method to handle drag leave on a task
+  onTaskDragLeave(event: DragEvent) {
+    const targetElement = event.target as HTMLElement;
+    if (targetElement.classList.contains('task-card')) {
+      targetElement.classList.remove('drag-over');
+    }
+  }
+
+  // Method to handle drag over on a list
+  onListDragOver(event: DragEvent) {
+    event.preventDefault();
+    const targetElement = event.target as HTMLElement;
+    if (targetElement.classList.contains('task-list-container')) {
+      targetElement.classList.add('drag-over');
+    }
+  }
+
+  // Method to handle drag leave on a list
+  onListDragLeave(event: DragEvent) {
+    const targetElement = event.target as HTMLElement;
+    if (targetElement.classList.contains('task-list-container')) {
+      targetElement.classList.remove('drag-over');
+    }
+  }
+
+  // Method to reset drag state
   resetDragState() {
     this.draggingTask = null;
     this.draggingList = null;
   }
 
-  // Phương thức tìm section chứa một list cụ thể
+  // Method to find section containing a list
   findSectionContainingList(list: TaskList): TaskSection | null {
     for (const section of this.taskSections) {
       if (section.taskLists.includes(list)) {

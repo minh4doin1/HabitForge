@@ -19,16 +19,22 @@
     <div class="task-list-container" *ngIf="!taskSections[0].collapsed"
          (dragover)="onListDragOver($event)"
          (drop)="onListDrop($event, taskSections[0])">
-      <div class="task-list" *ngFor="let list of taskSections[0].taskLists"
+      <div class="task-list" *ngFor="let list of taskSections[0].taskLists; let listIndex = index"
+           draggable="true"
            (dragstart)="onListDragStart($event, list)">
-        <h4>{{ list.title }}</h4>
-        <div class="task-card"
-             *ngFor="let task of list.tasks"
-             draggable="true"
-             (dragstart)="dragStart($event, task, list)"
-             (dragover)="onTaskDragOver($event)"
-             (drop)="onTaskDrop($event, list)">
-          {{ task.title }}
+        <h4 (click)="editListTitle(0, listIndex)">{{ list.title }}</h4>
+        <div class="task-card" *ngFor="let task of list.tasks" draggable="true"
+        (dragstart)="onTaskDragStart($event, task, list)"
+     (dragover)="onTaskDragOver($event)"
+     (dragleave)="onTaskDragLeave($event)"
+     (drop)="onTaskDrop($event, list)">
+          <div class="task-title" (click)="editTask(task)">{{ task.title }}</div>
+          <div class="task-popup" *ngIf="selectedTask === task">
+            <input type="text" [(ngModel)]="task.title" placeholder="Task title">
+            <textarea [(ngModel)]="task.description" placeholder="Task description"></textarea>
+            <button (click)="saveTask(task)">Save</button>
+            <button (click)="cancelEditTask()">Cancel</button>
+          </div>
         </div>
         <button class="add-task-btn" (click)="addTask(list)">+ Add Task</button>
       </div>
@@ -43,18 +49,25 @@
       <button class="toggle-btn" (click)="toggleSection(taskSections[1])">Toggle</button>
     </div>
     <div class="task-list-container" *ngIf="!taskSections[1].collapsed"
-         
-         (drop)="onListDrop($event, taskSections[1])">
-      <div class="task-list" *ngFor="let list of taskSections[1].taskLists"
+         (dragover)="onListDragOver($event)"
+         (drop)="onListDrop($event, taskSections[1])"
+         >
+      <div class="task-list" *ngFor="let list of taskSections[1].taskLists; let listIndex = index"
+           draggable="true"
            (dragstart)="onListDragStart($event, list)">
-        <h4>{{ list.title }}</h4>
-        <div class="task-card"
-             *ngFor="let task of list.tasks"
-             draggable="true"
-             (dragstart)="dragStart($event, task, list)"
-             (dragover)="onTaskDragOver($event)"
-             (drop)="onTaskDrop($event, list)">
-          {{ task.title }}
+        <h4 (click)="editListTitle(1, listIndex)">{{ list.title }}</h4>
+        <div class="task-card" *ngFor="let task of list.tasks" draggable="true"
+        (dragstart)="onTaskDragStart($event, task, list)"
+     (dragover)="onTaskDragOver($event)"
+     (dragleave)="onTaskDragLeave($event)"
+     (drop)="onTaskDrop($event, list)">
+          <div class="task-title" (click)="editTask(task)">{{ task.title }}</div>
+          <div class="task-popup" *ngIf="selectedTask === task">
+            <input type="text" [(ngModel)]="task.title" placeholder="Task title">
+            <textarea [(ngModel)]="task.description" placeholder="Task description"></textarea>
+            <button (click)="saveTask(task)">Save</button>
+            <button (click)="cancelEditTask()">Cancel</button>
+          </div>
         </div>
         <button class="add-task-btn" (click)="addTask(list)">+ Add Task</button>
       </div>
@@ -71,16 +84,22 @@
     <div class="task-list-container" *ngIf="!taskSections[2].collapsed"
          (dragover)="onListDragOver($event)"
          (drop)="onListDrop($event, taskSections[2])">
-      <div class="task-list" *ngFor="let list of taskSections[2].taskLists"
+      <div class="task-list" *ngFor="let list of taskSections[2].taskLists; let listIndex = index"
+           draggable="true"
            (dragstart)="onListDragStart($event, list)">
-        <h4>{{ list.title }}</h4>
-        <div class="task-card"
-             *ngFor="let task of list.tasks"
-             draggable="true"
-             (dragstart)="dragStart($event, task, list)"
-             (dragover)="onTaskDragOver($event)"
-             (drop)="onTaskDrop($event, list)">
-          {{ task.title }}
+        <h4 (click)="editListTitle(2, listIndex)">{{ list.title }}</h4>
+        <div class="task-card" *ngFor="let task of list.tasks" draggable="true"
+        (dragstart)="onTaskDragStart($event, task, list)"
+     (dragover)="onTaskDragOver($event)"
+     (dragleave)="onTaskDragLeave($event)"
+     (drop)="onTaskDrop($event, list)">
+          <div class="task-title" (click)="editTask(task)">{{ task.title }}</div>
+          <div class="task-popup" *ngIf="selectedTask === task">
+            <input type="text" [(ngModel)]="task.title" placeholder="Task title">
+            <textarea [(ngModel)]="task.description" placeholder="Task description"></textarea>
+            <button (click)="saveTask(task)">Save</button>
+            <button (click)="cancelEditTask()">Cancel</button>
+          </div>
         </div>
         <button class="add-task-btn" (click)="addTask(list)">+ Add Task</button>
       </div>
