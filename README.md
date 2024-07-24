@@ -1,5 +1,5 @@
 # HabitForge
-combination of notion, habitca, Stardew Valley and hollow knight
+A combination of notion,trello,google calendar, habitca, Stardew Valley and hollow knight
 
 # HabitForge
 
