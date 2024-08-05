@@ -17,6 +17,9 @@ export class TodoListService {
   getTaskSections(): Observable<TaskSection[]> {
     return this.http.get<TaskSection[]>(`${this.apiUrl}/task-sections`);
   }
+  getTaskLists(): Observable<TaskList[]> {
+    return this.http.get<TaskList[]>(`${this.apiUrl}/task-lists`);
+  }
   createTaskList(listName: string): Observable<TaskList> {
     return this.http.post<TaskList>(`${this.apiUrl}/task-lists`, { listName });
   }

@@ -1,5 +1,6 @@
 // task-list.model.ts
 export interface TaskList {
+    sectionId: any;
     _id: string; // ID của TaskList
     title: string; // Tiêu đề của TaskList
     tasks: Task[]; // Mảng các tasks trong TaskList

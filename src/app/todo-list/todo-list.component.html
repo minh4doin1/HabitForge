@@ -18,12 +18,12 @@
   <div class="task-section high-priority">
     <div class="section-header">
       <h3>High Priority</h3>
-      <button class="toggle-btn" (click)="toggleSection(taskSections[1])">Toggle</button>
+      <button class="toggle-btn" (click)="toggleSection(taskSections[0])">Toggle</button>
     </div>
-    <div class="task-list-container" *ngIf="!taskSections[1]?.collapsed"
+    <div class="task-list-container" *ngIf="!taskSections[0]?.collapsed"
          (dragover)="onListDragOver($event)"
-         (drop)="onListDrop($event, taskSections[1])">
-      <div class="task-list" *ngFor="let list of taskSections[1]?.taskLists; let listIndex = index"
+         (drop)="onListDrop($event, taskSections[0])">
+      <div class="task-list"  *ngFor="let list of taskSections[0]?.taskLists; let listIndex = index"
            draggable="true"
            (dragstart)="onListDragStart($event, list)">
         <h4 (click)="editListTitle(1, listIndex)">
@@ -50,9 +50,9 @@
             <button (click)="cancelEditTask()">Cancel</button>
           </div>
         </div>
-        <button class="add-task-btn" (click)="addTask(list)">+ Add Task</button>
+        <button class="add-task-btn" (click)="addTask()">+ Add Task</button>
       </div>
-      <button class="add-list-btn" (click)="addList(taskSections[1])">+ Add List</button>
+      <button class="add-list-btn" (click)="addList(taskSections[0])">+ Add List</button>
     </div>
   </div>
 
@@ -60,18 +60,19 @@
   <div class="task-section all-tasks">
     <div class="section-header">
       <h3>All Tasks</h3>
-      <button class="toggle-btn" (click)="toggleSection(taskSections[2])">Toggle</button>
+      <button class="toggle-btn" (click)="toggleSection(taskSections[1])">Toggle</button>
     </div>
     
-    <div class="task-list-container" *ngIf="!taskSections[2]?.collapsed"
+    <div class="task-list-container" *ngIf="!taskSections[1]?.collapsed"
          (dragover)="onListDragOver($event)"
-         (drop)="onListDrop($event, taskSections[2])">
-      <div class="task-list" *ngFor="let list of taskSections[2]?.taskLists; let listIndex = index"
+         (drop)="onListDrop($event, taskSections[1])">
+      <div class="task-list" *ngFor="let list of taskSections[1]?.taskLists; let listIndex = index"
            draggable="true"
            (dragstart)="onListDragStart($event, list)">
+           <button class="more-options-btn" (click)="toggleListActions(list)">...</button>
         <h4 (click)="editListTitle(1, listIndex)">
           {{ list.title }}
-          <button class="more-options-btn" (click)="toggleListActions(list)">...</button>
+          
         </h4>
         <div class="list-popup" *ngIf="isListActionsVisible(list)">
           <ul>
@@ -93,9 +94,9 @@
             <button (click)="cancelEditTask()">Cancel</button>
           </div>
         </div>
-        <button class="add-task-btn" (click)="addTask(list)">+ Add Task</button>
+        <button class="add-task-btn" (click)="addTask()">+ Add Task</button>
       </div>
-      <button class="add-list-btn" (click)="addList(taskSections[2])">+ Add List</button>
+      <button class="add-list-btn" (click)="addList(taskSections[1])">+ Add List</button>
     </div>
   </div>
 
@@ -103,12 +104,12 @@
   <div class="task-section completed">
     <div class="section-header">
       <h3>Completed</h3>
-      <button class="toggle-btn" (click)="toggleSection(taskSections[3])">Toggle</button>
+      <button class="toggle-btn" (click)="toggleSection(taskSections[2])">Toggle</button>
     </div>
-    <div class="task-list-container" *ngIf="!taskSections[3]?.collapsed"
+    <div class="task-list-container" *ngIf="!taskSections[2]?.collapsed"
          (dragover)="onListDragOver($event)"
-         (drop)="onListDrop($event, taskSections[3])">
-      <div class="task-list" *ngFor="let list of taskSections[3]?.taskLists; let listIndex = index"
+         (drop)="onListDrop($event, taskSections[2])">
+      <div class="task-list" *ngFor="let list of taskSections[2]?.taskLists; let listIndex = index"
            draggable="true"
            (dragstart)="onListDragStart($event, list)">
         <h4 (click)="editListTitle(2, listIndex)">
@@ -135,9 +136,13 @@
             <button (click)="cancelEditTask()">Cancel</button>
           </div>
         </div>
-        <button class="add-task-btn" (click)="addTask(list)">+ Add Task</button>
+        <button class="add-task-btn" (click)="addTask()">+ Add Task</button>
+        <div *ngFor="let task of tasks">
+          <h3>{{ task.name }}</h3>
+          <p>{{ task.description }}</p>
+        </div>
       </div>
-      <button class="add-list-btn" (click)="addList(taskSections[3])">+ Add List</button>
+      <button class="add-list-btn" (click)="addList(taskSections[2])">+ Add List</button>
     </div>
   </div>
 </div>

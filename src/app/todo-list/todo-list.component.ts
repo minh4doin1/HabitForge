@@ -22,17 +22,21 @@ export class TodoListComponent {
   draggingList: TaskList | null = null;
   selectedTask: Task | null = null;
   selectedList: TaskList | null = null;
+  allTask: TaskList [] = []
 
   isMultiSelect: boolean = false;
   selectedItems: { task?: Task; list?: TaskList }[] = [];
   taskActionsVisible: boolean = false;
   listActionsVisible: boolean = false;
+  tasks: any[] = []; // Mảng chứa danh sách các task
 
   constructor(private todoListService: TodoListService,private http: HttpClient) {
    
   }
   ngOnInit() {
     this.loadTaskSections();
+    this.loadTaskLists();
+    this.loadTasks();
   }
   loadTaskSections() {
     this.todoListService.getTaskSections().subscribe(
@@ -40,7 +44,8 @@ export class TodoListComponent {
         console.log('Loaded sections:', sections);
         this.taskSections = sections.map(section => ({
           ...section,
-          collapsed: section.collapsed ?? false
+          collapsed: section.collapsed ?? false,
+          taskLists: []  // Khởi tạo mảng taskLists trống ban đầu
         }));
         console.log('Initialized taskSections:', this.taskSections);
       },
@@ -49,6 +54,32 @@ export class TodoListComponent {
       }
     );
   }
+
+  loadTaskLists() {
+    this.todoListService.getTaskLists().subscribe(
+      (lists: TaskList[]) => {
+        console.log('Loaded task lists:', lists);
+        this.taskSections.forEach(section => {
+          section.taskLists = lists.filter(list => list.sectionId === section._id);
+        });
+        console.log('Updated taskSections:', this.taskSections);
+      },
+      error => {
+        console.error('Error loading task lists:', error);
+      }
+    );
+  }
+  
+  loadTasks() {
+  this.http.get<any[]>('http://localhost:5000/api/tasks')
+    .subscribe((response: any[]) => {
+      this.tasks = response;
+    }, error => {
+      console.error('Error loading tasks', error);
+    });
+}
+
+  
   closeList() {
     this.closeListEvent.emit();
     this.selectedList = null; // Đóng danh sách và đặt lại selectedList
@@ -58,7 +89,7 @@ export class TodoListComponent {
   
   
   //popup actions
-  toggleTaskActions(task: Task, list: TaskList) {
+   toggleTaskActions(task: Task, list: TaskList) {
     if (this.selectedTask === task && this.selectedList === list) {
       this.taskActionsVisible = !this.taskActionsVisible;
     } else {
@@ -224,15 +255,19 @@ export class TodoListComponent {
 
  
 
-  addTask(list: TaskList) {
-    const taskName = prompt('Enter task name:');
-    if (taskName) {
-      this.todoListService.createTask(list._id, taskName, '')
-        .subscribe((newTask) => {
-          list.tasks.push(newTask);
-        });
-    }
+
+  addTask() {
+    const task = { name: 'New Task', description: 'Task description' };
+
+    this.http.post('http://localhost:5000/api/tasks', task)
+      .subscribe(response => {
+        console.log('Task added successfully', response);
+        this.tasks.push(response); // Thêm task mới vào mảng tasks
+      }, error => {
+        console.error('Error adding task', error);
+      });
   }
+
 
   addList(section: TaskSection) {
     console.log('Section:', section);
