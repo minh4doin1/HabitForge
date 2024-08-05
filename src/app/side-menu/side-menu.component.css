@@ -1,0 +1,68 @@
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 240px; /* Initial width of the side menu */
+    height: 100%;
+    background-color: #333;
+    color: #fff;
+    transition: width 0.3s ease; /* Transition width for the entire side menu */
+    z-index: 1000;
+    overflow-y: auto;
+  }
+  
+  .side-menu.collapsed {
+    background-color:rgba(253, 253, 253, 0);
+    width: 48px; /* Collapsed width of the side menu */
+  }
+
+  .toggle-button {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    background-color: chocolate;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 1001;
+  }
+  
+  .content {
+    padding-top: 20px;
+    transition: padding 0.3s ease; /* Transition padding for the content */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .content.collapsed {
+    padding-top: 0;
+    width: 48px; /* Adjust width to match collapsed state */
+  }
+  
+  .mat-nav-list {
+    padding-left: 16px; /* Adjust padding for list items */
+  }
+  
+  .stats {
+    margin-top: 20px;
+    padding-left: 16px; /* Adjust padding for stats */
+  }
+  
+  .stat {
+    margin-bottom: 10px;
+  }
+  
+  /* Ensure other components fill the space when side menu is collapsed */
+  :host-context(.side-menu.collapsed) {
+    margin-left: 48px; /* Adjust margin to match collapsed side menu width */
+    width: calc(100% - 48px); /* Ensure full width when side menu is collapsed */
+  }
+  
+  /* Example styles for other components */
+  .other-component {
+    padding: 20px;
+    background-color: #f0f0f0;
+    color: #333;
+  }
+  .side-menu.collapsed .content {
+    display: none;
+  }

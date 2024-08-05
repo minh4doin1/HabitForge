@@ -10,7 +10,6 @@
     <button (click)="viewWeek()" [class]="this.configNavigator.selectMode == 'Week' ? 'selected' : ''">Week</button>
     <button (click)="viewMonth()" [class]="this.configNavigator.selectMode == 'Month' ? 'selected' : ''">Month</button>
     </div>
-
     <daypilot-calendar [config]="configDay" [events]="events" #day></daypilot-calendar>
     <daypilot-calendar [config]="configWeek" [events]="events" #week></daypilot-calendar>
     <daypilot-month [config]="configMonth" [events]="events" #month></daypilot-month>

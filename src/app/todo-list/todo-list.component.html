@@ -7,60 +7,41 @@
     <button class="menu-btn">Board</button>
     <button class="menu-btn">Calendar</button>
   </div>
+  <div class="delete-dropzone" (dragover)="onDragOver($event)" (drop)="onDeleteDrop($event)">
+    Drop here to delete
+  </div>
+  <button class="select-btn" (click)="toggleMultiSelect()">Select</button>
 </div>
 
-<div class="task-board">
+<div class="task-board" [class.multi-select]="isMultiSelect">
   <!-- Section High Priority -->
   <div class="task-section high-priority">
     <div class="section-header">
       <h3>High Priority</h3>
-      <button class="toggle-btn" (click)="toggleSection(taskSections[0])">Toggle</button>
-    </div>
-    <div class="task-list-container" *ngIf="!taskSections[0].collapsed"
-         (dragover)="onListDragOver($event)"
-         (drop)="onListDrop($event, taskSections[0])">
-      <div class="task-list" *ngFor="let list of taskSections[0].taskLists; let listIndex = index"
-           draggable="true"
-           (dragstart)="onListDragStart($event, list)">
-        <h4 (click)="editListTitle(0, listIndex)">{{ list.title }}</h4>
-        <div class="task-card" *ngFor="let task of list.tasks" draggable="true"
-        (dragstart)="onTaskDragStart($event, task, list)"
-     (dragover)="onTaskDragOver($event)"
-     (dragleave)="onTaskDragLeave($event)"
-     (drop)="onTaskDrop($event, list)">
-          <div class="task-title" (click)="editTask(task)">{{ task.title }}</div>
-          <div class="task-popup" *ngIf="selectedTask === task">
-            <input type="text" [(ngModel)]="task.title" placeholder="Task title">
-            <textarea [(ngModel)]="task.description" placeholder="Task description"></textarea>
-            <button (click)="saveTask(task)">Save</button>
-            <button (click)="cancelEditTask()">Cancel</button>
-          </div>
-        </div>
-        <button class="add-task-btn" (click)="addTask(list)">+ Add Task</button>
-      </div>
-      <button class="add-list-btn" (click)="addList(taskSections[0])">+ Add List</button>
-    </div>
-  </div>
-
-  <!-- Section All Tasks -->
-  <div class="task-section all-tasks">
-    <div class="section-header">
-      <h3>All Tasks</h3>
       <button class="toggle-btn" (click)="toggleSection(taskSections[1])">Toggle</button>
     </div>
-    <div class="task-list-container" *ngIf="!taskSections[1].collapsed"
+    <div class="task-list-container" *ngIf="!taskSections[1]?.collapsed"
          (dragover)="onListDragOver($event)"
-         (drop)="onListDrop($event, taskSections[1])"
-         >
-      <div class="task-list" *ngFor="let list of taskSections[1].taskLists; let listIndex = index"
+         (drop)="onListDrop($event, taskSections[1])">
+      <div class="task-list" *ngFor="let list of taskSections[1]?.taskLists; let listIndex = index"
            draggable="true"
            (dragstart)="onListDragStart($event, list)">
-        <h4 (click)="editListTitle(1, listIndex)">{{ list.title }}</h4>
+        <h4 (click)="editListTitle(1, listIndex)">
+          {{ list.title }}
+          <button class="more-options-btn" (click)="toggleListActions(list)">...</button>
+        </h4>
+        <div class="list-popup" *ngIf="isListActionsVisible(list)">
+          <ul>
+            <li><a href="#">Copy</a></li>
+            <li><a href="#">Change Color</a></li>
+            <li><a href="#">Sort By...</a></li>
+          </ul>
+        </div>
         <div class="task-card" *ngFor="let task of list.tasks" draggable="true"
-        (dragstart)="onTaskDragStart($event, task, list)"
-     (dragover)="onTaskDragOver($event)"
-     (dragleave)="onTaskDragLeave($event)"
-     (drop)="onTaskDrop($event, list)">
+             (dragstart)="onTaskDragStart($event, task, list)"
+             (dragover)="onTaskDragOver($event)"
+             (dragleave)="onTaskDragLeave($event)"
+             (drop)="onTaskDrop($event, list)">
           <div class="task-title" (click)="editTask(task)">{{ task.title }}</div>
           <div class="task-popup" *ngIf="selectedTask === task">
             <input type="text" [(ngModel)]="task.title" placeholder="Task title">
@@ -75,24 +56,35 @@
     </div>
   </div>
 
-  <!-- Section Completed -->
-  <div class="task-section completed">
+  <!-- Section All Tasks -->
+  <div class="task-section all-tasks">
     <div class="section-header">
-      <h3>Completed</h3>
+      <h3>All Tasks</h3>
       <button class="toggle-btn" (click)="toggleSection(taskSections[2])">Toggle</button>
     </div>
-    <div class="task-list-container" *ngIf="!taskSections[2].collapsed"
+    
+    <div class="task-list-container" *ngIf="!taskSections[2]?.collapsed"
          (dragover)="onListDragOver($event)"
          (drop)="onListDrop($event, taskSections[2])">
-      <div class="task-list" *ngFor="let list of taskSections[2].taskLists; let listIndex = index"
+      <div class="task-list" *ngFor="let list of taskSections[2]?.taskLists; let listIndex = index"
            draggable="true"
            (dragstart)="onListDragStart($event, list)">
-        <h4 (click)="editListTitle(2, listIndex)">{{ list.title }}</h4>
+        <h4 (click)="editListTitle(1, listIndex)">
+          {{ list.title }}
+          <button class="more-options-btn" (click)="toggleListActions(list)">...</button>
+        </h4>
+        <div class="list-popup" *ngIf="isListActionsVisible(list)">
+          <ul>
+            <li><a href="#">Copy</a></li>
+            <li><a href="#">Change Color</a></li>
+            <li><a href="#">Sort By...</a></li>
+          </ul>
+        </div>
         <div class="task-card" *ngFor="let task of list.tasks" draggable="true"
-        (dragstart)="onTaskDragStart($event, task, list)"
-     (dragover)="onTaskDragOver($event)"
-     (dragleave)="onTaskDragLeave($event)"
-     (drop)="onTaskDrop($event, list)">
+             (dragstart)="onTaskDragStart($event, task, list)"
+             (dragover)="onTaskDragOver($event)"
+             (dragleave)="onTaskDragLeave($event)"
+             (drop)="onTaskDrop($event, list)">
           <div class="task-title" (click)="editTask(task)">{{ task.title }}</div>
           <div class="task-popup" *ngIf="selectedTask === task">
             <input type="text" [(ngModel)]="task.title" placeholder="Task title">
@@ -104,6 +96,48 @@
         <button class="add-task-btn" (click)="addTask(list)">+ Add Task</button>
       </div>
       <button class="add-list-btn" (click)="addList(taskSections[2])">+ Add List</button>
+    </div>
+  </div>
+
+  <!-- Section Completed -->
+  <div class="task-section completed">
+    <div class="section-header">
+      <h3>Completed</h3>
+      <button class="toggle-btn" (click)="toggleSection(taskSections[3])">Toggle</button>
+    </div>
+    <div class="task-list-container" *ngIf="!taskSections[3]?.collapsed"
+         (dragover)="onListDragOver($event)"
+         (drop)="onListDrop($event, taskSections[3])">
+      <div class="task-list" *ngFor="let list of taskSections[3]?.taskLists; let listIndex = index"
+           draggable="true"
+           (dragstart)="onListDragStart($event, list)">
+        <h4 (click)="editListTitle(2, listIndex)">
+          {{ list.title }}
+          <button class="more-options-btn" (click)="toggleListActions(list)">...</button>
+        </h4>
+        <div class="list-popup" *ngIf="isListActionsVisible(list)">
+          <ul>
+            <li><a href="#">Copy</a></li>
+            <li><a href="#">Change Color</a></li>
+            <li><a href="#">Sort By...</a></li>
+          </ul>
+        </div>
+        <div class="task-card" *ngFor="let task of list.tasks" draggable="true"
+             (dragstart)="onTaskDragStart($event, task, list)"
+             (dragover)="onTaskDragOver($event)"
+             (dragleave)="onTaskDragLeave($event)"
+             (drop)="onTaskDrop($event, list)">
+          <div class="task-title" (click)="editTask(task)">{{ task.title }}</div>
+          <div class="task-popup" *ngIf="selectedTask === task">
+            <input type="text" [(ngModel)]="task.title" placeholder="Task title">
+            <textarea [(ngModel)]="task.description" placeholder="Task description"></textarea>
+            <button (click)="saveTask(task)">Save</button>
+            <button (click)="cancelEditTask()">Cancel</button>
+          </div>
+        </div>
+        <button class="add-task-btn" (click)="addTask(list)">+ Add Task</button>
+      </div>
+      <button class="add-list-btn" (click)="addList(taskSections[3])">+ Add List</button>
     </div>
   </div>
 </div>

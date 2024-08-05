@@ -15,12 +15,24 @@ import { DataService } from "../services/data.service";
 })
 export class CalendarComponent implements AfterViewInit {
   @Output() closeCalEvent = new EventEmitter<void>();
+  @ViewChild("calendar") calendar!: DayPilotCalendarComponent;
 @ViewChild("day") day!: DayPilotCalendarComponent;
 @ViewChild("week") week!:DayPilotCalendarComponent;
 @ViewChild("month") month!:DayPilotMonthComponent;
 @ViewChild("nav") nav!:DayPilotNavigatorComponent;
 events: DayPilot.EventData[] = [];
 date = DayPilot.Date.today();
+config: DayPilot.CalendarConfig = {
+  viewType: "Week",
+  startDate: "2023-07-02",
+  theme: "calendar_green"
+};
+themes: any[] = [
+  {name: "Default", value: "calendar_default"},
+  {name: "Green", value: "calendar_green"},
+  {name: "Transparent", value: "calendar_transparent"},
+  {name: "White", value: "calendar_white"},
+];
 contextMenu = new DayPilot.Menu({
   items: [
     {
@@ -145,10 +157,17 @@ configMonth: DayPilot.MonthConfig = {
 
 constructor(private ds: DataService) {
   this.viewWeek();
+  this.viewMonth();
+  this.viewDay();
 }
 
 ngAfterViewInit(): void {
-  this.loadEvents();
+  var from = this.calendar.control.visibleStart();
+  var to = this.calendar.control.visibleEnd();
+  this.ds.getEvents(from, to).subscribe( result => {
+    this.events = result;
+  } );
+  this.loadEvents;
 }
 
 loadEvents(): void {

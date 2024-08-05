@@ -1,0 +1,40 @@
+<div class="side-menu" [ngClass]="{ 'collapsed': !isExpanded }"*ngIf="isLoggedIn">
+    <button class="toggle-button" (click)="toggleMenu()">
+      <mat-icon>{{ isExpanded ? 'chevron_left' : 'chevron_right' }}</mat-icon>
+    </button>
+    <div class="content">
+      <mat-nav-list *ngIf="isExpanded">
+        <mat-list-item (click)="navigateTo('Habit Farm')">
+          <mat-icon>emoji_nature</mat-icon>
+          Habit Farm
+        </mat-list-item>
+        <mat-list-item (click)="navigateTo('Intellibrary')">
+          <mat-icon>book</mat-icon>
+          Intellibrary
+        </mat-list-item>
+        <mat-list-item (click)="navigateTo('Schedule Quest')">
+          <mat-icon>event</mat-icon>
+          Schedule Quest
+        </mat-list-item>
+        <mat-list-item (click)="navigateTo('home')">
+            <mat-icon fontIcon="home">home</mat-icon>
+            My home
+          </mat-list-item>
+      </mat-nav-list>
+      <div class="stats" *ngIf="isExpanded">
+        <div class="stat">
+          <mat-icon>favorite</mat-icon>
+          Health: {{ user.health }}
+        </div>
+        <div class="stat">
+          <mat-icon>attach_money</mat-icon>
+          Gold: {{ user.gold }}
+        </div>
+        <div class="stat">
+          <mat-icon>star</mat-icon>
+          Experience: {{ user.experience }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  -->

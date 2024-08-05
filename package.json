@@ -11,14 +11,18 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^18.0.0",
+    "@angular/cdk": "^18.0.6",
     "@angular/common": "^18.0.0",
     "@angular/compiler": "^18.0.0",
     "@angular/core": "^18.0.0",
     "@angular/forms": "^18.0.0",
+    "@angular/material": "^18.0.6",
     "@angular/platform-browser": "^18.0.0",
     "@angular/platform-browser-dynamic": "^18.0.0",
     "@angular/router": "^18.0.0",
     "@daypilot/daypilot-lite-angular": "^3.23.0",
+    "@syncfusion/ej2-angular-navigations": "^26.1.41",
+    "bcrypt": "^5.1.1",
     "daypilot-pro-angular": "^0.0.0",
     "mongoose": "^8.5.1",
     "ng-zorro-antd": "^18.0.1",
@@ -37,6 +41,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "prettier": "^3.3.3",
     "typescript": "~5.4.2"
   }
 }

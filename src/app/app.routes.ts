@@ -7,10 +7,12 @@ import { HomeComponent } from './home/home.component';
 import { MyHomeComponent } from './my-home/my-home.component';
 import { QuestscapeComponent } from './questscape/questscape.component';
 import { IntellibraryComponent } from './intellibrary/intellibrary.component';
+import { SignupComponent } from './signup/signup.component';
 
 export const routes: Routes = [
     { path: '', component: StartComponent },
     { path: 'login', component: LoginComponent },
+    { path: 'signup', component: SignupComponent },
     { path: 'home', component: HomeComponent },
     { path: 'my-home', component: MyHomeComponent },
     { path: 'habit-farm', component: HabitFarmComponent },

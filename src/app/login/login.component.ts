@@ -1,24 +1,28 @@
-import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { catchError, throwError } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Component({
-  selector: 'app-login',
   standalone:true,
+  selector: 'app-login',
+  imports:[ReactiveFormsModule,CommonModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  imports:[ 
-    FormsModule, // Import FormsModule if using template-driven forms
-    ReactiveFormsModule,CommonModule ]
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-
+  errorMessage: string = '';
+  username: string = '';
+  password: string = '';
   constructor(
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private http: HttpClient,
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -38,10 +42,44 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm(): void {
-    if (this.loginForm.valid) {
-      console.log('Form submitted successfully');
-      // Xử lý logic khi form hợp lệ, ví dụ chuyển hướng tới trang chủ
-      this.router.navigate(['/home']);
+    if (this.loginForm.invalid) {
+      return;
     }
+
+    const formData = this.loginForm.value;
+
+    this.http.post<any>('http://localhost:5000/api/login', formData)
+      .pipe(
+        catchError(error => {
+          console.error('HTTP error occurred:', error);
+          let errorMessage = 'Unknown error occurred. Please try again later.';
+          if (error.error && error.error.message) {
+            errorMessage = error.error.message;
+          }
+          this.errorMessage = errorMessage; // Display error message in the UI
+          return throwError(errorMessage); // Rethrow the error for further handling
+        })
+      )
+      .subscribe(
+        response => {
+          console.log('Login successful:', response);
+          localStorage.setItem('token', response.token);
+          this.authService.setLoggedIn(true); // Đánh dấu đăng nhập thành công
+          this.router.navigate(['/home']);
+        },
+        error => {
+          console.error('Login error:', error);
+          if (error.status === 401) {
+            this.errorMessage = 'Invalid username or password.';
+          } else {
+            this.errorMessage = 'Error during login. Please try again later.';
+          }
+        }
+      );
   }
+
+  clearErrorMessage(): void {
+    this.errorMessage = ''; // Clear error message
+  }
+  
 }

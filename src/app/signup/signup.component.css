@@ -1,0 +1,105 @@
+.bg-img {
+    position: fixed; /* Đảm bảo background ảnh cố định và nằm phía sau */
+    z-index: -1; /* Đặt z-index nhỏ hơn để nằm phía sau các phần tử khác */
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    top: 0;
+    left: 0;
+  }
+  body {
+    
+    font-family: 'Pixelify Sans', sans-serif;
+    background-color: #e0d7c8; /* Màu nền form màu đất */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  /* Form wrapper */
+  .signup-form {
+    max-width: 400px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 2px solid #333333;
+    border-radius: 10px;
+    font-family: 'Pixelify Sans', sans-serif;
+    margin: auto; /* Để căn giữa form */
+    margin-top: 170px;
+  }
+  
+  /* Form groups */
+  .form-group {
+  
+    margin-bottom: 15px;
+  }
+  
+  /* Labels */
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #333333;
+  }
+  
+  /* Input fields */
+  input[type="email"],
+  input[type="text"],
+  input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  /* Error messages */
+  .text-danger {
+    color: #d9534f;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  /* Submit button */
+  .btn-primary {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .btn-primary:hover {
+    background-color: #45a049;
+  }
+  
+  .btn-primary:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  /* Signup link */
+  .signup-link {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    color: #333333;
+    font-size: 14px;
+    text-decoration: none;
+  }
+  
+  .signup-link:hover {
+    text-decoration: underline;
+  }

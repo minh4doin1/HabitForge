@@ -26,7 +26,7 @@
     flex-direction: column;
     justify-content: space-between;
     padding-top: 20px; /* Adjust top padding */
-    z-index: 1000; /* Ensure it's above other content */
+    z-index: 900; /* Ensure it's above other content */
     border-right: 5px solid #3a2109; /* Border color and style */
 
     overflow-y: auto; /* Enable vertical scrolling */
