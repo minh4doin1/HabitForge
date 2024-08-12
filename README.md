@@ -2,7 +2,7 @@
 A combination of notion,trello,google calendar, habitca, Stardew Valley and hollow knight
 
 #Live demo:https://stackblitz.com/~/github.com/minh4doin1/HabitForge
-
+ NOTE: when you want to see the UI/UX without install the server, switch the url of http://localhost:4200/ to http://localhost:4200/home.
 ## Overview
 
 HabitForge is an application designed to gamify habit tracking and time management, integrating RPG elements to make habit-building engaging and rewarding. Users can track habits as if nurturing trees, with each habit completion representing the growth and harvesting of these virtual trees.
